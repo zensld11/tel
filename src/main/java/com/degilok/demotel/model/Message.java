@@ -22,5 +22,8 @@ public class Message {
     LocalDate dateCreate;
     boolean isMessageRead;
     String resipient;
-    String author;
+
+    @ManyToOne
+    @JoinColumn(name = "login")
+    User login;
 }

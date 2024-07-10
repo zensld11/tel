@@ -4,10 +4,12 @@ import com.degilok.demotel.model.Message;
 import com.degilok.demotel.model.User;
 import com.degilok.demotel.model.dto.MessageDto;
 
+import java.util.List;
+
 public interface MessageService {
 
     Message createMessage(MessageDto messageDto);
 
-    Message getUserMessagesByLogin(User login, Message message);
+    List<Message> getUserMessagesByLogin(User login);
 
 }
