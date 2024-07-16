@@ -7,25 +7,29 @@ import com.degilok.demotel.repository.MessageRepository;
 import com.degilok.demotel.service.MessageService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
+    private final UserServiceImpl userService;
 
-    public MessageServiceImpl(MessageRepository messageRepository) {
+    public MessageServiceImpl(MessageRepository messageRepository, UserServiceImpl userService) {
         this.messageRepository = messageRepository;
+        this.userService = userService;
     }
 
     @Override
     public Message createMessage(MessageDto messageDto) {
         Message message = new Message();
 
-        message.setResipient(messageDto.recipient());
+        message.setRecipient(messageDto.recipient());
         message.setMessage(messageDto.message());
-        message.setLogin(messageDto.login());
+        message.setLogin(userService.getUserByLogin(messageDto.login()));
         message.setMessageRead(messageDto.isMessageRead());
+        message.setDateCreate(LocalDate.now());
         return messageRepository.save(message);
     }
 
@@ -33,6 +37,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getUserMessagesByLogin(User user) {
         user.getLogin();
+
 
         List<Message> userMessage = messageRepository.findByLogin(user);
         return userMessage;
@@ -44,12 +49,6 @@ public class MessageServiceImpl implements MessageService {
         //getLogin();
     }
 }
-/*@Override
-public List<Message> getUserMessagesByLogin(User user) {
-    String login = user.getLogin(); // Получаем логин пользователя
-    List<Message> userMessages = messageRepository.findByUserLogin(login); // Ищем сообщения пользователя по его логину
-    return userMessages; // Возвращаем список сообщений пользователя
-}*/
 
 //    @Override
 //    public Message getUserMessages(Message message) {

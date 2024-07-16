@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @RestController
@@ -25,15 +25,17 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    //    @GetMapping("/messages")
-//    Message getMessage(@PathVariable User login) {
-//        try {
-//             messageService.getUserMessagesByLogin(login);
-//        } catch (MessageNotFoundException w) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Сообщение не найдено", w);
-//        }
-//        return "sdfd";
-//    }
+    @PostMapping("/create/messages")
+    public ResponseEntity<Message> createMessages(@RequestBody MessageDto messageDto) throws MessageNotCreateException {
+
+        Message messageCreated = messageService.createMessage(messageDto);
+        //messageCreated.setDateCreate(LocalDate.now());
+        if (messageCreated == null) {
+            throw new MessageNotCreateException();
+        }
+        return ResponseEntity.ok(messageCreated);
+    }
+
     @GetMapping("/messages/{login}")
     public ResponseEntity<List<Message>> getMessage(@PathVariable User login) {
         try {
@@ -43,15 +45,15 @@ public class MessageController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Сообщение пользователя не найдено", w);
         }
     }
-
-    @PostMapping("/create/messages")
-    public ResponseEntity<Message> createMessages(@RequestBody MessageDto messageDto) throws MessageNotCreateException {
-
-        Message messageCreated = messageService.createMessage(messageDto);
-        messageCreated.setDateCreate(LocalDate.now());
-        if (messageCreated == null) {
-            throw new MessageNotCreateException();
-        }
-        return ResponseEntity.ok(messageCreated);
-    }
+    
 }
+
+//    @GetMapping("/messages")
+//    Message getMessage(@PathVariable User login) {
+//        try {
+//             messageService.getUserMessagesByLogin(login);
+//        } catch (MessageNotFoundException w) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Сообщение не найдено", w);
+//        }
+//        return "sdfd";
+//    }

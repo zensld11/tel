@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDto.password());
         return userRepository.save(user);
     }
+
+    public User getUserByLogin(String login){
+        User user =  userRepository.getUserByLogin(login);
+        return user;
+    }
 }

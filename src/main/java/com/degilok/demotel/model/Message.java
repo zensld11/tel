@@ -21,7 +21,7 @@ public class Message {
     String message;
     LocalDate dateCreate;
     boolean isMessageRead;
-    String resipient;
+    String recipient;
 
     @ManyToOne
     @JoinColumn(name = "login")
