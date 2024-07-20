@@ -10,6 +10,9 @@ public interface MessageService {
 
     Message createMessage(MessageDto messageDto);
 
+//    String getUsersMessage(String login);
+
     List<Message> getUserMessagesByLogin(User login);
+
 
 }

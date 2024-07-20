@@ -33,20 +33,28 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.save(message);
     }
 
+//    @Override
+//    public String getUsersMessage(String login){
+//
+//        Message message = (Message) messageRepository.findByLogin(login);
+//
+//        message.getLogin();
+//        message.getDateCreate();
+//        message.getRecipient();
+//        message.getDateCreate();
+//
+//        return message.getMessage();
+//    }
+
 
     @Override
     public List<Message> getUserMessagesByLogin(User user) {
         user.getLogin();
 
-
         List<Message> userMessage = messageRepository.findByLogin(user);
+
+
         return userMessage;
-        //login.getLogin();
-        //messageRepository.findAll();
-
-//        messageRepository.findAllById(id);
-
-        //getLogin();
     }
 }
 

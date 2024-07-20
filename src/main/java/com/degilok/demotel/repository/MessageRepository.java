@@ -12,5 +12,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     // List<Message> findByUserLogin(String login);
 
-    List<Message> findByLogin(User user);
+    List<Message> findByLogin(User login);
 }
