@@ -16,5 +16,4 @@ class UserServiceImplTest {
     void getUserByLogin() {
         sut.getUserByLogin("Adelina");
     }
-
 }
